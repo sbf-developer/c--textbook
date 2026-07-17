@@ -1,0 +1,53 @@
+\chapter{Property-Based Testing}
+\index{Property-Based Testing}
+\begin{chaptermeta}
+\textbf{Learning objectives}
+\begin{itemize}
+  \item Explain the central problem addressed by Property-Based Testing and relate it to the C++ object, type, or program model.
+  \item Use the idea in a small program, identify its main failure modes, and state one trade-off honestly.
+\end{itemize}
+\textbf{Prerequisites}: the preceding chapter, plus the vocabulary introduced in Part 7.
+
+\textbf{Key terminology}: Property-Based Testing; contract; representation; lifetime; invariant; diagnostic; trade-off.
+\end{chaptermeta}
+
+\section{The problem and the mental model}
+Property-based testing generates many inputs to check general relationships. The property must be a real invariant, not a restatement of the implementation.
+
+The practical question is not merely “what syntax produces this result?” It is “what must be true before the operation, what changes during it, and what remains true afterward?” That question gives the topic a place in a larger program. A provisional beginner model is useful here, but it must be refined whenever the standard leaves a choice to the implementation or a library component adds a precondition.
+
+\section{A small working program}
+The complete standalone program for this chapter is stored at examples/chapters/ch099.cpp and is compiled by the verification script.
+
+\inputminted[fontsize=\scriptsize,breaklines]{cpp}{examples/chapters/ch099.cpp}
+
+The program is intentionally complete: it includes its headers, defines `main`, and has no dependency on a hidden project file. The code is a teaching instrument, not a claim that the smallest program is the best production design. Larger interfaces should expose ownership, failure, and lifetime explicitly.
+
+\section{Rules, mistakes, and diagnostics}
+The language rule and the engineering guideline are related but different. The compiler can diagnose violations that are visible in the translation unit, while runtime errors can arise from invalid input, environmental failure, lifetime mistakes, data races, or an incorrect model. Begin debugging with the first reproducible symptom and reduce the case before changing several things at once.
+
+Common mistakes include using a name before its declaration, assuming a representation is universal, ignoring a returned error, retaining a reference or view beyond its source lifetime, and relying on an observed implementation detail. When a rule is about undefined behavior, no particular output is evidence of correctness.
+
+\begin{warning}
+\textbf{Undefined-behavior check.} If an example in this chapter would be wrong because an object is out of lifetime, an access is out of bounds, a precondition is violated, or two unsynchronized operations race, the program is wrong even if it compiles. Run the relevant sanitizer and add a test that exercises the boundary.
+\end{warning}
+
+\section{Design, performance, and testing}
+Choose the simplest representation that makes the contract visible. Measure performance only after naming the workload and the metric. A local optimization that changes ownership, ordering, or error behavior is a design change and should be reviewed as such. A useful test checks an observable property, includes a boundary case, and fails with enough context to explain what was expected.
+
+\begin{worked}
+\textbf{Worked micro-check.} Suppose a program uses property-based testing and a test fails only for an empty input or a repeated call. First write down the expected contract for that boundary, then make the smallest input that distinguishes valid absence from invalid use. The answer is not to add a guard blindly: decide whether the API should reject, represent absence, or preserve an invariant before the next call.
+\end{worked}
+
+\section{Exercises}
+\begin{enumerate}
+  \item Explain the topic in three sentences: one about purpose, one about a rule, and one about a limitation.
+  \item Modify the complete program so that it accepts one relevant input and reports one meaningful failure through the interface chosen in this chapter.
+  \item Write a test for the smallest boundary case and a second test for the case that would expose a lifetime, ownership, ordering, or complexity mistake.
+\end{enumerate}
+
+\textbf{Selected solution.} A sound solution states the precondition before it changes the code, uses a named value or type for the result, checks the failure path, and tests both the ordinary case and the boundary. If the change cannot be explained without referring to an undocumented implementation detail, redesign the interface or document the assumption.
+
+\section{Summary and further study}
+Property-Based Testing is best understood as a contract inside a larger system. Keep the distinction between standard requirement, implementation behavior, and engineering recommendation visible. Re-run the example, inspect its diagnostics, and compare the result with the corresponding project when the idea appears in a multi-file program. Further study should include the relevant standard-library reference, the C++ Core Guidelines, and the citations listed in the bibliography.
+

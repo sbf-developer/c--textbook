@@ -1,0 +1,17 @@
+\begin{tikzpicture}[
+  node distance=8mm,
+  every node/.style={font=\sffamily\small,align=center},
+  stage/.style={draw=accent,fill=accentlight,rounded corners=1pt,minimum width=42mm,minimum height=9mm},
+  arrow/.style={-{Stealth[length=2mm]},draw=muted,line width=0.5pt}
+]
+\node[stage] (source) {Source files\\(.cpp, headers)};
+\node[stage,below=of source] (compile) {Compiler\\translation unit};
+\node[stage,below=of compile] (object) {Object files\\and libraries};
+\node[stage,below=of object] (link) {Linker\\executable};
+\node[stage,below=of link] (run) {Operating system\\process};
+\draw[arrow] (source) -- (compile);
+\draw[arrow] (compile) -- (object);
+\draw[arrow] (object) -- (link);
+\draw[arrow] (link) -- (run);
+\end{tikzpicture}
+

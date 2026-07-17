@@ -1,0 +1,21 @@
+{
+  "title": "MODERN C++: From First Program to Professional Software",
+  "author": "Scott Brodie Forsyth",
+  "standard_baseline": "C++23",
+  "chapter_count": 182,
+  "generated_programs": 182,
+  "parts": [
+    "Computers and Programming",
+    "The Foundations of C++",
+    "Data and Memory",
+    "User-Defined Types",
+    "The Standard Library",
+    "Generic Programming",
+    "Errors, Testing, and Reliability",
+    "Data Structures and Algorithms",
+    "Professional C++ Development",
+    "Concurrency",
+    "Performance and Systems",
+    "Advanced Language and Design"
+  ]
+}

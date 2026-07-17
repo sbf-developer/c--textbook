@@ -1,0 +1,42 @@
+\chapter*{Project index}
+\addcontentsline{toc}{chapter}{Project index}
+
+The codebase contains progressively larger examples rather than a disconnected collection of fragments. The main projects are:
+
+\begin{itemize}
+\item \textbf{Command-line calculator}: parsing, validation, and explicit error reporting.
+\item \textbf{Text analysis}: strings, character classification, maps, and deterministic output.
+\item \textbf{Task ledger}: a small persistent application with a library, command-line front end, tests, and CMake.
+\item \textbf{Graph and algorithm examples}: traversal, complexity, and testable data structures.
+\item \textbf{Concurrency example}: shared state, synchronization, and deterministic verification.
+\item \textbf{Filesystem search}: portable standard-library filesystem traversal with failure handling.
+\end{itemize}
+
+\chapter*{Glossary}
+\addcontentsline{toc}{chapter}{Glossary}
+
+\begin{description}[style=nextline,leftmargin=2.6cm,labelindent=0pt]
+\item[ABI] Application binary interface: conventions that let separately compiled binary components interact.
+\item[Algorithm] A finite, precise procedure for transforming inputs into outputs or effects.
+\item[Borrow] A non-owning use of an object whose lifetime is managed elsewhere.
+\item[Compiler] A program that translates source code into another representation and diagnoses violations of language rules.
+\item[Dangling pointer] A pointer whose stored address no longer denotes a live object of the required kind.
+\item[Exception safety] Guarantees describing what remains true when an operation fails by throwing.
+\item[Invariant] A condition that a type or system promises to preserve at defined boundaries.
+\item[Lifetime] The interval during which an object exists and may be used as an object of its type.
+\item[Linker] A tool that combines object files and libraries into a program or library image.
+\item[Ownership] Responsibility for releasing a resource exactly once at the appropriate time.
+\item[Race condition] A behavior that depends on the relative timing of operations that are not correctly synchronized.
+\item[RAII] Resource acquisition is initialization: bind resource ownership to an object's lifetime.
+\item[Translation unit] A source file after preprocessing, treated as one unit by the compiler.
+\item[Undefined behavior] A case for which the C++ standard imposes no requirements on the program's behavior.
+\end{description}
+
+\chapter*{Bibliographic note}
+\addcontentsline{toc}{chapter}{Bibliographic note}
+
+The bibliography combines standards, vendor documentation, recognized C++ references, and foundational computer-science texts. URLs were checked during production; the technical fact-check report records the access date and the claims for which each source was used.
+
+\bibliographystyle{plainnat}
+\nocite{*}
+\bibliography{references}

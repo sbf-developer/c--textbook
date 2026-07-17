@@ -1,0 +1,48 @@
+name: modern-cpp-book-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  cpp:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build build --config Release --parallel
+      - name: Test
+        run: ctest --test-dir build --build-config Release --output-on-failure
+
+  generated-examples:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile all standalone examples
+        run: bash tools/verify_examples.sh
+
+  book:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install document dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y latexmk texlive-xetex texlive-latex-extra \
+            texlive-fonts-recommended python3-pygments poppler-utils
+      - name: Build PDF
+        run: bash tools/build_book.sh
+      - name: Run PDF QA
+        run: python3 tools/qa_pdf.py
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: modern-cpp-book
+          path: output/pdf/modern-cpp-book.pdf
+

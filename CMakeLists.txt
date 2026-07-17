@@ -1,0 +1,41 @@
+cmake_minimum_required(VERSION 3.23)
+project(modern_cpp_book_examples VERSION 1.0 LANGUAGES CXX)
+
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+option(MODERN_CPP_ENABLE_WARNINGS "Enable strong compiler warnings" ON)
+
+function(add_book_example target source)
+    add_executable(${target} ${source})
+    target_compile_features(${target} PRIVATE cxx_std_23)
+    if(MODERN_CPP_ENABLE_WARNINGS)
+        if(MSVC)
+            target_compile_options(${target} PRIVATE /W4 /permissive-)
+        else()
+            target_compile_options(${target} PRIVATE -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion)
+        endif()
+    endif()
+endfunction()
+
+add_book_example(calculator examples/calculator.cpp)
+add_book_example(text_analysis examples/text_analysis.cpp)
+add_book_example(task_manager examples/task_manager.cpp)
+add_book_example(ownership examples/ownership.cpp)
+add_book_example(polymorphism examples/polymorphism.cpp)
+add_book_example(algorithms examples/algorithms.cpp)
+add_book_example(concepts examples/concepts.cpp)
+add_book_example(graph examples/graph.cpp)
+add_book_example(concurrency examples/concurrency.cpp)
+add_book_example(filesystem_search examples/filesystem_search.cpp)
+add_book_example(expected_style examples/expected_style.cpp)
+add_book_example(benchmark examples/benchmark.cpp)
+
+add_subdirectory(projects/taskledger)
+
+include(CTest)
+if(BUILD_TESTING AND NOT WIN32)
+    add_test(NAME chapter_and_example_compile
+        COMMAND bash ${CMAKE_SOURCE_DIR}/tools/verify_examples.sh --compile-only)
+endif()

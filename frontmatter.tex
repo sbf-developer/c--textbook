@@ -1,0 +1,55 @@
+{\hypersetup{pageanchor=false}\bookcover}
+
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+Modern C++ is both a language and a way of making trade-offs. It can expose the machine closely, but it can also express high-level abstractions with strong compile-time guarantees. Those capabilities are useful only when the programmer can reason about types, ownership, lifetime, interfaces, failure, portability, and measurement.
+
+This book is designed as a continuous path from a first program to professional software. It does not treat C++ as synonymous with object-oriented programming, nor does it present a single style as universally correct. Procedural, object-oriented, generic, functional, and data-oriented techniques all appear where they solve real problems.
+
+The book is deliberately standards-aware. The selected baseline is C++23, the current published ISO revision at the time of this edition. C++26 material is discussed only as work in progress or implementation-dependent material, never as a portable requirement. The distinction matters: a compiler can implement a proposal before that proposal is part of a published standard.
+
+\section*{How to read this book}
+The chapters are short and cumulative. Read the first two parts in order. From Part III onward, use the prerequisites and cross-references to move between topics. The projects are the connective tissue: they turn isolated language facilities into maintainable programs with tests, documentation, persistence, and a reproducible build.
+
+Every complete program in the book has a corresponding file in the codebase. The build scripts are intentionally ordinary: a direct compiler command is shown first, followed by CMake when project structure becomes useful. The local verification report records exactly what was tested in the production environment.
+
+\chapter*{Standards baseline and evidence}
+\addcontentsline{toc}{chapter}{Standards baseline and evidence}
+
+The book targets \textbf{C++23} with the compiler option \inlinecode{-std=c++23} (GCC/Clang) or \inlinecode{/std:c++23} where supported by MSVC. The current published ISO standard is ISO/IEC 14882:2024(E), informally called C++23 because the technical work was completed in 2023 \citep{ISO2024,isocpp-standard}. C++26 remains a moving target in the standards process, so examples requiring draft-only facilities are excluded from the portable baseline \citep{isocpp-status}.
+
+Support is feature-by-feature. GCC, Clang, and MSVC may implement different portions of C++23 and may expose later proposals under experimental switches. Consult the vendors' status pages before depending on a library facility, especially modules, formatting, ranges extensions, coroutines, and newer C++26 proposals \citep{gcc-status,clang-status,msvc-conformance}.
+
+The examples emphasize standard library facilities that are broadly implemented in current toolchains. When support is incomplete or materially different, the text labels the limitation and supplies a portable alternative. CMake is introduced as a build-system generator, not as a compiler; its role is to produce native build files for tools such as Make, Ninja, Visual Studio, and Xcode \citep{cmake-docs}.
+
+\begin{note}
+\textbf{Terminology convention.} “The standard requires” means a requirement of ISO C++. “Typically” describes common implementations. “Recommended” describes engineering guidance. “In this book” describes a pedagogical or stylistic choice. These are not interchangeable claims.
+\end{note}
+
+\chapter*{Notation and safety conventions}
+\addcontentsline{toc}{chapter}{Notation and safety conventions}
+
+Code blocks labelled \textbf{wrong} are deliberately incorrect and are never used as build inputs. Undefined behavior is marked explicitly. A successful compilation is not proof that a program is correct: the compiler checks a language-defined subset of properties, while tests, analysis, review, and measurement address the rest.
+
+Mathematics appears only when it clarifies a model. Whenever notation is introduced, the symbols are defined in ordinary language before they are used. Complexity claims are separated from measurements, and claims about performance are tied to a documented environment.
+
+\chapter*{Roadmap}
+\addcontentsline{toc}{chapter}{Roadmap}
+
+\begin{tabularx}{\textwidth}{@{}>{\sffamily\bfseries\color{accent}}lX@{}}
+Part I & Computers, tools, and the translation process.\\
+Part II & Core language foundations and program control.\\
+Part III & Data representation, memory, ownership, and lifetime.\\
+Part IV & User-defined types and competing design styles.\\
+Part V & Containers, algorithms, ranges, files, and library facilities.\\
+Part VI & Templates, concepts, and compile-time programming.\\
+Part VII & Errors, testing, debugging, and reliability.\\
+Part VIII & Data structures, algorithms, complexity, and benchmarking.\\
+Part IX & Build systems, APIs, portability, and professional practice.\\
+Part X & Concurrency and the C++ memory model.\\
+Part XI & Performance, profiling, locality, and systems trade-offs.\\
+Part XII & Advanced interfaces, metaprogramming, coroutines, and architecture.
+\end{tabularx}
+
+\clearpage
